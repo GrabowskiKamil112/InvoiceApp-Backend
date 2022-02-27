@@ -8,7 +8,7 @@ const invoice = {
     console.log(req.body.type);
 
     const testItems = [
-      { name: "somename", quantity: "234", price: "234" },
+      { name: "somasdename", quantity: "234", price: "234" },
       { name: "nafghjme" },
       { name: "somename", quantity: "234" },
     ];
@@ -17,6 +17,7 @@ const invoice = {
       type: "draft",
       from: {
         street: "wyszynskikiego11a",
+        city: "oswiecim",
       },
       to: {
         email: "abc$123",
@@ -24,7 +25,7 @@ const invoice = {
       },
       description: "reeeeeeeeeeeeeeeee",
       items_list: testItems,
-      userID: "1234",
+      userID: "621bb49dab967326a06a880c",
       created: "now",
     };
 
@@ -71,7 +72,7 @@ const invoice = {
       .catch((err) => console.log(err));
   },
   getAllInvoicesOfOneType: (req, res) => {
-    console.log(req.query);
+    console.log("query: " + req.query.userID);
     Invoice.find({ userID: req.query.userID, type: req.query.type })
       .then((results) => res.send(results))
       .catch((err) => console.log(err));
