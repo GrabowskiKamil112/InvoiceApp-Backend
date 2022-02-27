@@ -1,7 +1,7 @@
-const user = require('./UserController');
-const note = require('./NoteController');
+const user = require("./UserController");
+const invoice = require("./NoteController");
 
 module.exports = {
   user,
-  note
+  invoice,
 };

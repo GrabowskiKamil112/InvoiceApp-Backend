@@ -1,45 +1,83 @@
 const mongoose = require("mongoose");
-require("../models/Note");
+require("../models/Invoice");
 
-const Note = mongoose.model("notes");
+const Invoice = mongoose.model("invoices");
 
-const note = {
-  addNote: async (req, res) => {
-    const newNoteContent = {
-      type: req.body.type, // twitters, articles, notes
-      title: req.body.title,
-      content: req.body.content,
-      articleUrl: req.body.articleUrl,
-      twitterName: req.body.twitterName,
-      userID: req.body.userID,
-      created: req.body.created,
+const invoice = {
+  addInvoice: async (req, res) => {
+    console.log(req.body.type);
+
+    const testItems = [
+      { name: "somename", quantity: "234", price: "234" },
+      { name: "nafghjme" },
+      { name: "somename", quantity: "234" },
+    ];
+
+    const testInvoice = {
+      type: "draft",
+      from: {
+        street: "wyszynskikiego11a",
+      },
+      to: {
+        email: "abc$123",
+        country: "poland",
+      },
+      description: "reeeeeeeeeeeeeeeee",
+      items_list: testItems,
+      userID: "1234",
+      created: "now",
     };
 
+    // const newInvoiceContent = {
+    //   type: req.body.type, // draft, pending, paid
+    //   from: {
+    //     street: req.body.from.street,
+    //     city: req.body.from.city,
+    //     post_code: req.body.from.post_code,
+    //     country: req.body.from.country,
+    //   },
+    //   to: {
+    //     name: req.body.to.name,
+    //     email: req.body.to.email,
+    //     city: req.body.to.city,
+    //     post_code: req.body.to.post_code,
+    //     country: req.body.to.country,
+    //   },
+    //   invoice_date: req.body.invoice_date,
+    //   payment_term: req.body.payment_term,
+    //   description: req.body.description,
+    //   items_list: testItems,
+    //   userID: req.body.userID,
+    //   created: req.body.created,
+    // };
+
+    console.log(testInvoice);
+
     try {
-      const newNote = await new Note(newNoteContent).save((err, note) => {
-        res.send(note);
+      const newInvoice = await new Invoice(testInvoice).save((err, invoice) => {
+        res.send(invoice);
+        console.log("Invoice saved:", invoice);
       });
-      console.log("Note saved:", newNote);
     } catch (err) {
       console.log(err);
       res.sendStatus(500);
     }
   },
 
-  getAllNotes: (req, res) => {
+  getAllInvoices: (req, res) => {
     console.log(req);
-    Note.find({ userID: req.query.userID })
+    Invoice.find({ userID: req.query.userID })
       .then((results) => res.send(results))
       .catch((err) => console.log(err));
   },
-  getAllNotesOfOneType: (req, res) => {
+  getAllInvoicesOfOneType: (req, res) => {
     console.log(req.query);
-    Note.find({ userID: req.query.userID, type: req.query.type })
+    Invoice.find({ userID: req.query.userID, type: req.query.type })
       .then((results) => res.send(results))
       .catch((err) => console.log(err));
   },
-  getSingleNote: (req, res) => {
-    Note.findById(req.params.id)
+  getSingleInvoice: (req, res) => {
+    Invoice.findById(req.params.id)
       .then((results) => {
         if (!results) {
           res.send(404);
@@ -49,29 +87,29 @@ const note = {
       })
       .catch((err) => res.send(404));
   },
-  updateNote: (req, res) => {
-    const updatedNoteContent = {
+  updateInvoice: (req, res) => {
+    const updatedInvoiceContent = {
       type: req.body.type, // twitters, articles, simple
       title: req.body.title,
       content: req.body.content,
       articleUrl: req.body.articleUrl,
       twitterName: req.body.twitterName,
     };
-    Note.findByIdAndUpdate(req.params.id, updatedNoteContent)
-      .then((updatedNote) => res.send(updatedNote))
+    Invoice.findByIdAndUpdate(req.params.id, updatedInvoiceContent)
+      .then((updatedInvoice) => res.send(updatedInvoice))
       .catch((err) => console.log(err));
   },
-  deleteNote: (req, res) => {
-    Note.findByIdAndDelete(req.params.id)
+  deleteInvoice: (req, res) => {
+    Invoice.findByIdAndDelete(req.params.id)
       .then((result) => {
         if (!result) {
           res.sendStatus(404);
         } else {
-          res.sendStatus(200);
+          res.sendStatus(Invoice);
         }
       })
       .catch((err) => res.sendStatus(500));
   },
 };
 
-module.exports = note;
+module.exports = invoice;
