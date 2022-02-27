@@ -23,7 +23,7 @@ const invoice = {
         email: "abc$123",
         country: "poland",
       },
-      description: "reeeeeeeeeeeeeeeee",
+      description: "reeeeeeeeeeeeeeeeee",
       items_list: testItems,
       userID: "621bb49dab967326a06a880c",
       created: "now",
