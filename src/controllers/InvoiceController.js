@@ -7,55 +7,33 @@ const invoice = {
   addInvoice: async (req, res) => {
     console.log(req.body.type);
 
-    const testItems = [
-      { name: "somasdename", quantity: "234", price: "234" },
-      { name: "nafghjme" },
-      { name: "somename", quantity: "234" },
-    ];
-
-    const testInvoice = {
-      type: "draft",
+    const newInvoiceContent = {
+      type: req.body.type, // draft, pending, paid
       from: {
-        street: "wyszynskikiego11a",
-        city: "oswiecim",
+        street: req.body.from.street,
+        city: req.body.from.city,
+        post_code: req.body.from.post_code,
+        country: req.body.from.country,
       },
       to: {
-        email: "abc$123",
-        country: "poland",
+        name: req.body.to.name,
+        email: req.body.to.email,
+        city: req.body.to.city,
+        post_code: req.body.to.post_code,
+        country: req.body.to.country,
       },
-      description: "reeeeeeeeeeeeeeeeee",
-      items_list: testItems,
-      userID: "621bb49dab967326a06a880c",
-      created: "now",
+      invoice_date: req.body.invoice_date,
+      payment_term: req.body.payment_term,
+      description: req.body.description,
+      items_list: req.body.items_list,
+      userID: req.body.userID,
+      created: req.body.created,
     };
 
-    // const newInvoiceContent = {
-    //   type: req.body.type, // draft, pending, paid
-    //   from: {
-    //     street: req.body.from.street,
-    //     city: req.body.from.city,
-    //     post_code: req.body.from.post_code,
-    //     country: req.body.from.country,
-    //   },
-    //   to: {
-    //     name: req.body.to.name,
-    //     email: req.body.to.email,
-    //     city: req.body.to.city,
-    //     post_code: req.body.to.post_code,
-    //     country: req.body.to.country,
-    //   },
-    //   invoice_date: req.body.invoice_date,
-    //   payment_term: req.body.payment_term,
-    //   description: req.body.description,
-    //   items_list: testItems,
-    //   userID: req.body.userID,
-    //   created: req.body.created,
-    // };
-
-    console.log(testInvoice);
+    console.log("EEEEEEEEEEEE:",newInvoiceContent);
 
     try {
-      const newInvoice = await new Invoice(testInvoice).save((err, invoice) => {
+      const newInvoice = await new Invoice(newInvoiceContent).save((err, invoice) => {
         res.send(invoice);
         console.log("Invoice saved:", invoice);
       });

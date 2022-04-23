@@ -23,7 +23,7 @@ passport.authenticate("local");
 
 app.use(
   session({
-    secret: "roman",
+    secret: "123",
     resave: false,
     saveUninitialized: true,
   })
@@ -32,6 +32,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
+console.log("LOG",process.env.NODE_DATABASE);
 mongoose.connect(process.env.NODE_DATABASE, { useNewUrlParser: true });
 
 const conn = mongoose.connection;
