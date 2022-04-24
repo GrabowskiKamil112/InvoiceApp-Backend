@@ -43,7 +43,7 @@ const user = {
           return res.sendStatus(500);
         } else {
           passport.authenticate("local")(req, res, function () {
-            res.send(req.user.id);
+            res.send({ _id: req.user.id, username: req.user.username });
           });
         }
       }
