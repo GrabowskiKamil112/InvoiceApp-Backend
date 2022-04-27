@@ -5,7 +5,7 @@ const Invoice = mongoose.model("invoices");
 
 const invoice = {
   addInvoice: async (req, res) => {
-    console.log(req.body.type);
+    console.log(req.body);
 
     const newInvoiceContent = {
       type: req.body.type, // draft, pending, paid
@@ -30,13 +30,15 @@ const invoice = {
       created: req.body.created,
     };
 
-    console.log("EEEEEEEEEEEE:",newInvoiceContent);
+    console.log("EEEEEEEEEEEE:", newInvoiceContent);
 
     try {
-      const newInvoice = await new Invoice(newInvoiceContent).save((err, invoice) => {
-        res.send(invoice);
-        console.log("Invoice saved:", invoice);
-      });
+      const newInvoice = await new Invoice(newInvoiceContent).save(
+        (err, invoice) => {
+          res.send(invoice);
+          console.log("Invoice saved:", invoice);
+        }
+      );
     } catch (err) {
       console.log(err);
       res.sendStatus(500);
