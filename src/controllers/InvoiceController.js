@@ -81,12 +81,14 @@ const invoice = {
       .catch((err) => console.log(err));
   },
   deleteInvoice: (req, res) => {
+    console.log("sdsdsdsdsd", req.params.id);
     Invoice.findByIdAndDelete(req.params.id)
       .then((result) => {
+        console.log("res", result);
         if (!result) {
           res.sendStatus(404);
         } else {
-          res.sendStatus(Invoice);
+          res.send(result);
         }
       })
       .catch((err) => res.sendStatus(500));
