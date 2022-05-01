@@ -67,18 +67,18 @@ const InvoiceSchema = new Schema({
       type: String,
       defualt: null,
     },
-    street_address: {
+    street: {
       type: String,
       defualt: null,
     },
   },
   invoice_date: {
     type: String,
-    defualt: null,
+    required: true,
   },
   payment_term: {
     type: String,
-    defualt: null,
+    required: true,
   },
   description: {
     type: String,
@@ -86,10 +86,6 @@ const InvoiceSchema = new Schema({
   },
   items_list: [itemSchema],
   userID: {
-    type: String,
-    required: true,
-  },
-  created: {
     type: String,
     required: true,
   },

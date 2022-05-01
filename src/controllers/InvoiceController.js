@@ -19,6 +19,7 @@ const invoice = {
         name: req.body.to.name,
         email: req.body.to.email,
         city: req.body.to.city,
+        street: req.body.to.street,
         post_code: req.body.to.post_code,
         country: req.body.to.country,
       },
@@ -27,7 +28,6 @@ const invoice = {
       description: req.body.description,
       items_list: req.body.items_list,
       userID: req.body.userID,
-      created: req.body.created,
     };
 
     console.log("EEEEEEEEEEEE:", newInvoiceContent);
@@ -70,14 +70,31 @@ const invoice = {
   },
   updateInvoice: (req, res) => {
     const updatedInvoiceContent = {
-      type: req.body.type, // twitters, articles, simple
-      title: req.body.title,
-      content: req.body.content,
-      articleUrl: req.body.articleUrl,
-      twitterName: req.body.twitterName,
+      type: req.body.type, // draft, pending, paid
+      from: {
+        street: req.body.from.street,
+        city: req.body.from.city,
+        post_code: req.body.from.post_code,
+        country: req.body.from.country,
+      },
+      to: {
+        name: req.body.to.name,
+        email: req.body.to.email,
+        city: req.body.to.city,
+        street: req.body.to.street,
+        post_code: req.body.to.post_code,
+        country: req.body.to.country,
+      },
+      invoice_date: req.body.invoice_date,
+      payment_term: req.body.payment_term,
+      description: req.body.description,
+      items_list: req.body.items_list,
+      userID: req.body.userID,
     };
     Invoice.findByIdAndUpdate(req.params.id, updatedInvoiceContent)
-      .then((updatedInvoice) => res.send(updatedInvoice))
+      .then((updatedInvoice) =>
+        res.send({ ...updatedInvoiceContent, _id: updatedInvoice._id })
+      )
       .catch((err) => console.log(err));
   },
   deleteInvoice: (req, res) => {
