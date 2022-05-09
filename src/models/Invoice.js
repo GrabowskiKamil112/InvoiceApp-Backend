@@ -6,17 +6,13 @@ const INVOICE_TYPES = ["paid", "pending", "draft"];
 const itemSchema = new Schema({
   name: {
     type: String,
-    required: true,
+    defualt: null,
   },
   quantity: {
     type: String,
     defualt: null,
   },
   price: {
-    type: String,
-    defualt: null,
-  },
-  total: {
     type: String,
     defualt: null,
   },
