@@ -6,8 +6,6 @@ const User = mongoose.model("users");
 
 const user = {
   userLogin: (req, res, next) => {
-    console.log("first: " + req.body);
-
     passport.authenticate("local", function (err, user, info) {
       if (err) {
         return next(err);
