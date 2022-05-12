@@ -33,10 +33,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-console.log(process.env);
-console.log("LOG", process.env.NODE_DATABASE);
+console.log(
+  "LOG about process env",
+  process.env.NODE_DATABASE,
+  process.env.PORT
+);
 
-mongoose.connect(process.env.NODE_DATABASE, { useNewUrlParser: true });
+mongoose.connect(
+  "mongodb+srv://xRoZkmn1122:xRoZkmn1122@cluster0.aqalf.mongodb.net/Invoice_app?retryWrites=true&w=majority",
+  { useNewUrlParser: true }
+);
 
 const conn = mongoose.connection;
 conn.on("error", console.error.bind(console, "connection error:"));
