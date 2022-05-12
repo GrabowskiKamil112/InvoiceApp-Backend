@@ -1,4 +1,5 @@
-const dotenv = require("dotenv").load();
+require("dotenv").config();
+//const dotenv = require("dotenv").load();
 const express = require("express");
 const session = require("express-session");
 const mongoose = require("mongoose");
@@ -32,7 +33,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-console.log("LOG",process.env.NODE_DATABASE);
+console.log(process.env);
+console.log("LOG", process.env.NODE_DATABASE);
+
 mongoose.connect(process.env.NODE_DATABASE, { useNewUrlParser: true });
 
 const conn = mongoose.connection;
