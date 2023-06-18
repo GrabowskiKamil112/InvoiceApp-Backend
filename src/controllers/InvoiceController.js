@@ -5,7 +5,7 @@ const Invoice = mongoose.model("invoices");
 
 const invoice = {
   addInvoice: async (req, res) => {
-    console.log(req.body);
+    console.log('req body',req.body);
 
     const newInvoiceContent = {
       type: req.body.type, // draft, pending, paid

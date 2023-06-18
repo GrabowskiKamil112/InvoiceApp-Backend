@@ -5,7 +5,7 @@ require("../models/User");
 const User = mongoose.model("users");
 
 const user = {
-  userLogin: (req, res, next) => {
+  userLogin: (req, res, next) => {console.log('login',req);
     passport.authenticate("local", function (err, user, info) {
       if (err) {
         return next(err);
